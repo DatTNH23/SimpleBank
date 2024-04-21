@@ -33,8 +33,6 @@ public class AccountsServiceImpl implements AccountsService {
             throw new CustomerAlreadyExistsException("Customer already registerd with given mobile number"
                     + customer.getMobileNumber());
         }
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonym");
         Customer savedCustomer =  customerRepository.save(customer);
         accountsRepository.save(createNewAccount(savedCustomer));
 
