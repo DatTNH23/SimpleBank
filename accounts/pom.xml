@@ -11,6 +11,7 @@
 	<groupId>com.simplebank</groupId>
 	<artifactId>accounts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>accounts</name>
 	<description>Microservice for Account</description>
 	<properties>
@@ -69,7 +70,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+						<name>tnh23/${project.artifactId}:v1</name>
 					</image>
 					<excludes>
 						<exclude>
