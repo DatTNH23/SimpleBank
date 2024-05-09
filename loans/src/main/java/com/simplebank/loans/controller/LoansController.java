@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.*;
 public class LoansController {
     @Autowired
     private LoansService loansService;
-    @Value("${build.version}")
-    private String buildVersion;
 
     @Autowired
     private Environment environment;
@@ -170,12 +168,6 @@ public class LoansController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
-    }
-    @GetMapping("/build-info")
-    public ResponseEntity<String> getBuildInfo() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(buildVersion);
     }
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
