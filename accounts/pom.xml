@@ -96,7 +96,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>tnh23/${project.artifactId}:v1</name>
+						<name>tnh23/${project.artifactId}:v2</name>
 					</image>
 					<excludes>
 						<exclude>
