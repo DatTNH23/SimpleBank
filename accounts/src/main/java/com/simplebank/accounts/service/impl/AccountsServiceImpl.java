@@ -19,10 +19,14 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 @Service
 @AllArgsConstructor
 public class AccountsServiceImpl implements AccountsService {
+    private static final Logger logger = LoggerFactory.getLogger(AccountsServiceImpl.class);
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
     @Override
@@ -34,7 +38,9 @@ public class AccountsServiceImpl implements AccountsService {
                     + customer.getMobileNumber());
         }
         Customer savedCustomer =  customerRepository.save(customer);
-        accountsRepository.save(createNewAccount(savedCustomer));
+        Accounts newAcc = createNewAccount(savedCustomer);
+        logger.info(newAcc.toString());
+        accountsRepository.save(newAcc);
 
     }
     /**
