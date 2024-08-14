@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableConfigurationProperties(value = {AccountsContactInfoDto.class})
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Account mircoservices REST API Documentation",
+				title = "Account microservices REST API Documentation",
 				description = "SimpleBank Accounts microservice REST API Documentation",
 				version = "v1",
 				license = @License(
