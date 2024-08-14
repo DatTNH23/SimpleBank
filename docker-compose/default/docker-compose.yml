@@ -27,7 +27,7 @@ services:
       file: common-config.yml
       service: microservice-db-config
   configserver:
-    image: "tnh23/configserver:v4"
+    image: "tnh23/configserver:v5"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -40,8 +40,24 @@ services:
     extends:
       file: common-config.yml
       service: microservice-base-config
+  eurekaserver:
+    image: "tnh23/eurekaserver:v5"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+    environment:
+      SPRING_APPLICATION_NAME: "eurekaserver"
   accounts:
-    image: "tnh23/accounts:v4"
+    image: "tnh23/accounts:v5"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -51,13 +67,11 @@ services:
     depends_on:
       accountsdb:
         condition: service_healthy
-      configserver:
-        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
   loans:
-    image: "tnh23/loans:v4"
+    image: "tnh23/loans:v5"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -67,13 +81,11 @@ services:
     depends_on:
       loansdb:
         condition: service_healthy
-      configserver:
-        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
   cards:
-    image: "tnh23/cards:v4"
+    image: "tnh23/cards:v5"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -83,11 +95,9 @@ services:
     depends_on:
       cardsdb:
         condition: service_healthy
-      configserver:
-        condition: service_healthy
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 networks:
   simplebank:
     driver: "bridge"
