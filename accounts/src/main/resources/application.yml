@@ -26,8 +26,16 @@ management:
   endpoint:
     shutdown:
       enabled: true
+    health:
+      probes:
+        enabled: true
   info:
     env:
+      enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
       enabled: true
 endpoints:
   shutdown:
@@ -45,3 +53,9 @@ info:
     name: "accounts"
     description: "Simple Bank Accounts Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      simplebank:
+        accounts: DEBUG

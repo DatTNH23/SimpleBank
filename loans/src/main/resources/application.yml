@@ -25,8 +25,16 @@ management:
   endpoint:
     shutdown:
       enabled: true
+    health:
+      probes:
+        enabled: true
   info:
     env:
+      enabled: true
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
       enabled: true
 
 
@@ -48,3 +56,9 @@ info:
     name: "loans"
     description: "Simple Bank Loans Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      simplebank:
+        loans: DEBUG

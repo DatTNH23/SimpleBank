@@ -80,6 +80,10 @@
 			<version>2.10.0</version>
 			<scope>compile</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -100,7 +104,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>tnh23/${project.artifactId}:v5</image>
+						<image>tnh23/${project.artifactId}:v6</image>
 					</to>
 				</configuration>
 			</plugin>
