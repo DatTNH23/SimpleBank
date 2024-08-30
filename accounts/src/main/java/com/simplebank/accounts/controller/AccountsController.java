@@ -6,6 +6,7 @@ import com.simplebank.accounts.dto.CustomerDto;
 import com.simplebank.accounts.dto.ErrorResponseDto;
 import com.simplebank.accounts.dto.ResponseDto;
 import com.simplebank.accounts.service.AccountsService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -168,11 +169,18 @@ public class AccountsController {
             )
     }
     )
+    @RateLimiter(name="getJavaVersion", fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    public ResponseEntity<String> getJavaVersionFallback(Throwable throwable){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Java 17");
     }
 
     @Operation(
