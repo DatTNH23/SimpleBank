@@ -15,6 +15,7 @@ import com.simplebank.accounts.service.CustomersService;
 import com.simplebank.accounts.service.client.CardsFeignClient;
 import com.simplebank.accounts.service.client.LoansFeignClient;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +45,14 @@ public class CustomersServiceImpl implements CustomersService {
         customerDetailsDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
 
         ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(correlationId, mobileNumber);
-        customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
+        if (loansDtoResponseEntity != null){
+            customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
+        }
 
         ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.fetchCardDetails(correlationId, mobileNumber);
-        customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        if (cardsDtoResponseEntity != null){
+            customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        }
 
         return customerDetailsDto;
 
