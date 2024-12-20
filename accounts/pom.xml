@@ -61,7 +61,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.30</version> <!-- Use the latest version of Lombok -->
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -119,7 +120,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>tnh23/${project.artifactId}:v7</image>
+						<image>tnh23/${project.artifactId}:v8</image>
 					</to>
 				</configuration>
 			</plugin>

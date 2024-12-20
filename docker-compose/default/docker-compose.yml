@@ -234,7 +234,7 @@ services:
       file: common-config.yml
       service: microservice-db-config
   configserver:
-    image: "tnh23/configserver:v7"
+    image: "tnh23/configserver:v8"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -250,7 +250,7 @@ services:
     environment:
       OTEL_SERVICE_NAME: "configserver"
   eurekaserver:
-    image: "tnh23/eurekaserver:v7"
+    image: "tnh23/eurekaserver:v8"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -267,7 +267,7 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
       OTEL_SERVICE_NAME: "eurekaserver"
   accounts:
-    image: "tnh23/accounts:v7"
+    image: "tnh23/accounts:v8"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -288,7 +288,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   loans:
-    image: "tnh23/loans:v7"
+    image: "tnh23/loans:v8"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -309,7 +309,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   cards:
-    image: "tnh23/cards:v7"
+    image: "tnh23/cards:v8"
     container_name: cards-ms
     ports:
       - "9000:9000"
@@ -330,7 +330,7 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   gatewayserver:
-    image: "tnh23/gatewayserver:v7"
+    image: "tnh23/gatewayserver:v8"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
