@@ -1,4 +1,16 @@
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    container_name: keycloak
+    ports:
+      - "7080:8080"
+    environment:
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+    command: "start-dev"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
   read:
     image: grafana/loki:2.9.2
     command: "-config.file=/etc/loki/config.yaml -target=read"
@@ -234,7 +246,7 @@ services:
       file: common-config.yml
       service: microservice-db-config
   configserver:
-    image: "tnh23/configserver:v8"
+    image: "tnh23/configserver:v9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -250,7 +262,7 @@ services:
     environment:
       OTEL_SERVICE_NAME: "configserver"
   eurekaserver:
-    image: "tnh23/eurekaserver:v8"
+    image: "tnh23/eurekaserver:v9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -267,10 +279,8 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
       OTEL_SERVICE_NAME: "eurekaserver"
   accounts:
-    image: "tnh23/accounts:v8"
+    image: "tnh23/accounts:v9"
     container_name: accounts-ms
-    ports:
-      - "8080:8080"
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
@@ -288,10 +298,8 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   loans:
-    image: "tnh23/loans:v8"
+    image: "tnh23/loans:v9"
     container_name: loans-ms
-    ports:
-      - "8090:8090"
     healthcheck:
       test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
@@ -309,10 +317,8 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   cards:
-    image: "tnh23/cards:v8"
+    image: "tnh23/cards:v9"
     container_name: cards-ms
-    ports:
-      - "9000:9000"
     healthcheck:
       test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
@@ -330,13 +336,14 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
   gatewayserver:
-    image: "tnh23/gatewayserver:v8"
+    image: "tnh23/gatewayserver:v9"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"
       OTEL_SERVICE_NAME: "gatewayserver"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
     depends_on:
       accounts:
         condition: service_healthy
