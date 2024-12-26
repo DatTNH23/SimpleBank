@@ -72,7 +72,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>tnh23/${project.artifactId}:v9</image>
+						<image>tnh23/${project.artifactId}:v10</image>
 					</to>
 				</configuration>
 			</plugin>
