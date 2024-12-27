@@ -12,10 +12,11 @@ spring:
 
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
   sql:
     init:
       mode: always
-      schema-locations: classpath:schema.sql
   config:
     import: "optional:configserver:http://localhost:8071/"
   cloud:
