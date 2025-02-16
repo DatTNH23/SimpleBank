@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: simeplebank-configmap
+  name: simplebank-configmap
 data:
   SPRING_PROFILES_ACTIVE: prod
   SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
