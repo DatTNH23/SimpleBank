@@ -1,0 +1,6 @@
+dependencies:
+- name: simplebank-common
+  repository: file://../../simplebank-common
+  version: 0.1.0
+digest: sha256:6cc4c51e4112b96b033c7e5095088a088dacdc3aa5ff696cf9b40a4d766f0c5b
+generated: "2025-02-23T21:59:12.512449+01:00"
