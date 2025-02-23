@@ -12,4 +12,4 @@ data:
   OTEL_EXPORTER_OTLP_ENDPOINT: {{ .Values.global.otelExporterEndPoint }}
   OTEL_METRICS_EXPORTER: {{ .Values.global.otelMetricsExporter }}
   SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: {{ .Values.global.kafkaBrokerURL }}
-  {{- end -}}
+{{- end -}}
