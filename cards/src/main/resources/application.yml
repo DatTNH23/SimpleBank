@@ -11,7 +11,6 @@ spring:
     url: jdbc:mysql://localhost:3309/cardsdb
     username: root
     password: root
-
   jpa:
     show-sql: true
     hibernate:
@@ -19,6 +18,10 @@ spring:
   sql:
     init:
       mode: always
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
 management:
   endpoints:
     web:
@@ -46,14 +49,6 @@ endpoints:
   shutdown:
     enabled: true
 
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8070/eureka/
 
 info:
   app:

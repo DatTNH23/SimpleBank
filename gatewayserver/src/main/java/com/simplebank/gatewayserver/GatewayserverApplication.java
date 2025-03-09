@@ -34,7 +34,7 @@ public class GatewayserverApplication {
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
 								.circuitBreaker(config -> config.setName("accountsCircuitBreaker")
 										.setFallbackUri("forward:/contactSupport")))
-						.uri("lb://ACCOUNTS"))
+						.uri("http://accounts:8080"))
 				.route(p ->
 						p.path("/simplebank/loans/**")
 						.filters(f -> f.rewritePath("/simplebank/loans/(?<segment>.*)","/${segment}")
@@ -42,14 +42,14 @@ public class GatewayserverApplication {
 								.retry(retryConfig -> retryConfig.setRetries(3)
 										.setMethods(HttpMethod.GET)
 										.setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
-						.uri("lb://LOANS"))
+						.uri("http://accounts:8090"))
 				.route(p ->
 						p.path("/simplebank/cards/**")
 						.filters(f -> f.rewritePath("/simplebank/cards/(?<segment>.*)","/${segment}")
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
 								.requestRateLimiter(config -> config.setRateLimiter(redisRateLimiter())
 										.setKeyResolver(userKeyResolver())))
-						.uri("lb://CARDS"))
+						.uri("http://cards:9000"))
 				.build();
 	}
 
