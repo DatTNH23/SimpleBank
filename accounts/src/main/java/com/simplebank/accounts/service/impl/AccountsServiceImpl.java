@@ -2,6 +2,7 @@ package com.simplebank.accounts.service.impl;
 
 import com.simplebank.accounts.constants.AccountsConstants;
 import com.simplebank.accounts.dto.AccountsDto;
+import com.simplebank.accounts.dto.AccountsMsgDto;
 import com.simplebank.accounts.dto.CustomerDto;
 import com.simplebank.accounts.entity.Accounts;
 import com.simplebank.accounts.entity.Customer;
@@ -13,6 +14,7 @@ import com.simplebank.accounts.repository.AccountsRepository;
 import com.simplebank.accounts.repository.CustomerRepository;
 import com.simplebank.accounts.service.AccountsService;
 import lombok.AllArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 
@@ -29,6 +31,8 @@ public class AccountsServiceImpl implements AccountsService {
     private static final Logger logger = LoggerFactory.getLogger(AccountsServiceImpl.class);
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
+
     @Override
     public void createAccount(CustomerDto customerDto) {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
@@ -40,8 +44,17 @@ public class AccountsServiceImpl implements AccountsService {
         Customer savedCustomer =  customerRepository.save(customer);
         Accounts newAcc = createNewAccount(savedCustomer);
         logger.info(newAcc.toString());
-        accountsRepository.save(newAcc);
+        Accounts savedAccount = accountsRepository.save(newAcc);
+        sendCommunication(savedAccount,savedCustomer);
 
+    }
+
+    private void sendCommunication(Accounts account, Customer customer) {
+        var accountsMsgDto = new AccountsMsgDto(account.getAccountNumber(), customer.getName(),
+                customer.getEmail(), customer.getMobileNumber());
+        logger.info("Sending Communication request for the details: {}", accountsMsgDto);
+        var result = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
+        logger.info("Is the Communication request successfully triggered ? : {}", result);
     }
     /**
      * @param customer - Customer Object
@@ -101,5 +114,23 @@ public class AccountsServiceImpl implements AccountsService {
         accountsRepository.deleteByCustomerId(customer.getCustomerId());
         customerRepository.deleteById(customer.getCustomerId());
         return true;
+    }
+
+    /**
+     * @param accountNumber - Long
+     * @return boolean indicating if the update of communication status is successful or not
+     */
+    @Override
+    public boolean updateCommunicationStatus(Long accountNumber) {
+        boolean isUpdated = false;
+        if(accountNumber !=null ){
+            Accounts accounts = accountsRepository.findById(accountNumber).orElseThrow(
+                    () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+            );
+            accounts.setCommunicationSw(true);
+            accountsRepository.save(accounts);
+            isUpdated = true;
+        }
+        return  isUpdated;
     }
 }

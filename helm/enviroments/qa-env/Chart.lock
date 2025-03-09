@@ -1,0 +1,27 @@
+dependencies:
+- name: simplebank-common
+  repository: file://../../simplebank-common
+  version: 0.1.0
+- name: configserver
+  repository: file://../../simplebank-services/configserver
+  version: 0.1.0
+- name: eurekaserver
+  repository: file://../../simplebank-services/eurekaserver
+  version: 0.1.0
+- name: accounts
+  repository: file://../../simplebank-services/accounts
+  version: 0.1.0
+- name: cards
+  repository: file://../../simplebank-services/cards
+  version: 0.1.0
+- name: loans
+  repository: file://../../simplebank-services/loans
+  version: 0.1.0
+- name: gatewayserver
+  repository: file://../../simplebank-services/gatewayserver
+  version: 0.1.0
+- name: message
+  repository: file://../../simplebank-services/message
+  version: 0.1.0
+digest: sha256:8c35e18531d299174348b1c13533be6d15ebc9557873ab13f650bbba40c4359e
+generated: "2025-02-23T22:43:02.602797+01:00"
