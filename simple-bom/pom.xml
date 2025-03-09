@@ -35,7 +35,7 @@
 		<otel.version>1.33.5</otel.version>
 		<micrometer.version>1.13.3</micrometer.version>
 		<jib.version>3.4.2</jib.version>
-		<image.tag>s20</image.tag>
+		<image.tag>v11</image.tag>
 	</properties>
 	<dependencies>
 		<dependency>
