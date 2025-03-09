@@ -37,6 +37,9 @@
 		<jib.version>3.4.2</jib.version>
 		<image.tag>v11</image.tag>
 	</properties>
+	<modules>
+		<module>common</module>
+	</modules>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

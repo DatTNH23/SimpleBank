@@ -1,4 +1,4 @@
-package com.simplebank.cards.dto;
+package com.simplebank.common.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

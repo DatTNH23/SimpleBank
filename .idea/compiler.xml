@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gatewayserver" />
         <module name="cards" />
+        <module name="common" />
         <module name="loans" />
         <module name="accounts" />
         <module name="configserver" />
@@ -18,12 +19,14 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="accounts" options="-parameters" />
-      <module name="cards" options="-parameters" />
+      <module name="accounts" options="" />
+      <module name="cards" options="" />
+      <module name="common" options="" />
       <module name="configserver" options="-parameters" />
       <module name="gatewayserver" options="-parameters" />
-      <module name="loans" options="-parameters" />
+      <module name="loans" options="" />
       <module name="message" options="-parameters" />
+      <module name="simple-bom" options="" />
     </option>
   </component>
 </project>
