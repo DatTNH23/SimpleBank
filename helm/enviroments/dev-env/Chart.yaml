@@ -32,9 +32,6 @@ dependencies:
     version: 0.1.0
     repository: file://../../simplebank-services/configserver
 
-  - name: eurekaserver
-    version: 0.1.0
-    repository: file://../../simplebank-services/eurekaserver
 
   - name: accounts
     version: 0.1.0

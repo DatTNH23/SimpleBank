@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.simplebank</groupId>
+		<artifactId>simple-bom</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../simple-bom/pom.xml</relativePath>
 	</parent>
 	<groupId>com.simplebank</groupId>
 	<artifactId>loans</artifactId>
@@ -20,6 +20,11 @@
 		<otelVersion>1.32.0</otelVersion>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.simplebank</groupId>
+			<artifactId>common</artifactId>
+			<version>${common-lib.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
@@ -64,7 +69,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -96,7 +101,7 @@
 				<version>3.4.1</version>
 				<configuration>
 					<to>
-						<image>tnh23/${project.artifactId}:v10</image>
+						<image>tnh23/${project.artifactId}:v11</image>
 					</to>
 				</configuration>
 			</plugin>
